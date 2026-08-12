@@ -42,13 +42,11 @@ function fit(points: MapPoint[]) {
 }
 
 /**
- * Location reveal map.
- * Uses MapTiler static maps when VITE_MAPTILER_API_KEY is set; otherwise falls
- * back to a simplified illustrated Borneo backdrop. Markers are always drawn by
- * us so the map stays part of the site's design.
+ * Location reveal map using MapTiler static maps.
+ * Uses MapTiler dataviz-v4 style when VITE_MAPTILER_API_KEY is set.
  */
 export function LocationMap({ points }: { points: MapPoint[] }) {
-  const key = import.meta.env["VITE_MAPTILER_API_KEY"] as string | undefined;
+  const apiKey = import.meta.env["VITE_MAPTILER_API_KEY"] as string | undefined;
   const { center, zoom } = useMemo(() => fit(points), [points]);
 
   const origin = project(center.lng, center.lat, zoom);
@@ -57,8 +55,9 @@ export function LocationMap({ points }: { points: MapPoint[] }) {
     return { ...p, x: q.x - origin.x + W / 2, y: q.y - origin.y + H / 2 };
   });
 
-  const tileUrl = key
-    ? `https://api.maptiler.com/maps/dataviz-light/static/${center.lng},${center.lat},${zoom}/${W}x${H}@2x.png?key=${key}`
+  // Use MapTiler basic-v2 static map (more reliably supported)
+  const mapUrl = apiKey
+    ? `https://api.maptiler.com/maps/basic-v2/static/${center.lng},${center.lat},${zoom}/${W}x${H}@2x.png?key=${apiKey}`
     : null;
 
   const [a, b] = placed;
@@ -69,11 +68,11 @@ export function LocationMap({ points }: { points: MapPoint[] }) {
     : 0;
 
   return (
-    <div className="relative overflow-hidden rounded-[var(--radius-2xl)] border border-border bg-secondary/30 shadow-soft">
-      <div className="relative w-full" style={{ aspectRatio: `${W} / ${H}` }}>
-        {tileUrl ? (
+    <div className="relative overflow-hidden rounded-[var(--radius-2xl)] border border-border bg-secondary/30 shadow-soft w-full" style={{ aspectRatio: `${W} / ${H}` }}>
+      <div className="relative w-full h-full">
+        {mapUrl ? (
           <img
-            src={tileUrl}
+            src={mapUrl}
             alt="Map showing the selected and actual locations"
             loading="lazy"
             className="absolute inset-0 h-full w-full object-cover"
@@ -118,9 +117,9 @@ export function LocationMap({ points }: { points: MapPoint[] }) {
                     x={-(p.label.length * 5.6 + 26) / 2}
                     y={-26}
                     width={p.label.length * 5.6 + 26}
-                    height={26}
-                    rx={13}
-                    fill="var(--card)"
+                    height="20"
+                    rx="10"
+                    fill="white"
                     stroke="var(--border)"
                   />
                   <text
@@ -143,7 +142,7 @@ export function LocationMap({ points }: { points: MapPoint[] }) {
           <Legend color="var(--primary)" text="Your answer" />
           <Legend color="var(--success)" text="Actual hometown" />
         </div>
-        {!tileUrl && (
+        {!mapUrl && (
           <p className="absolute right-3 top-3 rounded-full bg-card/90 px-3 py-1 text-[0.62rem] uppercase tracking-[0.14em] text-muted-foreground">
             Illustrated view
           </p>

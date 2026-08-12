@@ -6,9 +6,9 @@
 
 export const intro = {
   title: "My Internship Experience",
-  role: "Software Testing Intern",
+  role: "Materialise R&D Department Intern",
   author: "Prepared by Irweena",
-  scrollHint: "Scroll to begin",
+  scrollHint: "Scroll to begin :D",
 };
 
 export const journey = {
@@ -16,30 +16,30 @@ export const journey = {
   title: "Sarawak to Selangor",
   from: { label: "Kuching, Sarawak", note: "Where it started" },
   to: { label: "Petaling Jaya, Selangor", note: "Where I interned" },
-  caption: "One flight across the South China Sea.",
+  caption: "Across the South China Sea...",
 };
 
 export const skills = {
   title: "Skills I Learned Here",
-  subtitle: "Three things I will carry with me.",
+  subtitle: "Some valuable skills i gained.",
   items: [
     {
       number: "01",
-      title: "[Skill / Area]",
-      description: "[Short description — one or two lines you can expand on verbally.]",
-      icon: "beaker",
+      title: "Software Verification and Validation",
+      description: "Regression • Functional • Exploratory • Bugfix Validation",
+      icon: "love",
     },
     {
       number: "02",
-      title: "[Skill / Area]",
-      description: "[Short description — one or two lines you can expand on verbally.]",
-      icon: "bug",
+      title: "Automation & Test Scripting",
+      description: "Test Script Refactoring • JSON Test Scenario Investigation • Automated Weekly Log Tool ",
+      icon: "love",
     },
     {
       number: "03",
-      title: "[Skill / Area]",
-      description: "[Short description — one or two lines you can expand on verbally.]",
-      icon: "sparkles",
+      title: " and More",
+      description: "Bug identification and reporting • Version Control (Git) • Azure DevOps • Testing & Automation Frameworks: pytest, unittest, Playwright, pywinauto Data Analysis & Processing: Pandas, NumPy • MSAI" ,
+      icon: "love",
     },
   ],
 };
@@ -66,74 +66,73 @@ export const months: Month[] = [
   {
     month: "February",
     short: "Feb",
-    theme: "[Theme for this month]",
-    summary: "[Very short summary — one line.]",
+    theme: "My first week here!",
+    summary: " ",
     details: [
-      { label: "What happened", body: "[Placeholder — replace with what happened.]" },
-      { label: "What I learned", body: "[Placeholder — replace with what you learned.]" },
-      { label: "Challenge", body: "[Placeholder — replace with a challenge.]" },
+      { label: "Tasks", body: "Started with the onboarding process." },
+      { label: "What I learned", body: "Completed onboarding and corporate policies and regulated software practices." },
+      { label: "Challenge", body: "Gaining familiarity with the work environment." },
     ],
   },
   {
     month: "March",
     short: "Mar",
-    theme: "[Theme for this month]",
-    summary: "[Very short summary — one line.]",
+    theme: "Getting used to the software",
+    summary: " ",
     details: [
-      { label: "What happened", body: "[Placeholder]" },
-      { label: "What I learned", body: "[Placeholder]" },
-      { label: "Reflection", body: "[Placeholder]" },
+      { label: "Tasks", body: "Developed foundational knowledge of 3D design software." },
+      { label: "What I learned", body: "Practiced Agile estimation techniques." }
     ],
   },
   {
     month: "April",
     short: "Apr",
-    theme: "[Theme for this month]",
-    summary: "[Very short summary — one line.]",
+    theme: "My first real project",
+    summary: " ",
     details: [
-      { label: "What happened", body: "[Placeholder]" },
-      { label: "Small achievement", body: "[Placeholder]" },
+      { label: "Tasks", body: "Gained hands on experience with regression testing across multiple requirements. Involved in validating and verifying Bugfix 20.0.1 release." },
+      { label: "Observation", body: "Bug reporting, Report documentation, Introduction to Git Extensions." },
+      { label: "Small achievement", body: "Completed RT on 12 requirements, 1 week before the end of the sprint." },
     ],
   },
   {
     month: "May",
     short: "May",
-    theme: "[Theme for this month]",
-    summary: "[Very short summary — one line.]",
+    theme: "Getting the hang of things",
+    summary: " ",
     details: [
-      { label: "What happened", body: "[Placeholder]" },
-      { label: "What I learned", body: "[Placeholder]" },
-      { label: "Challenge", body: "[Placeholder]" },
+      { label: "Tasks", body: "Participated in validation and verification of Beta release. Continued RT on 3 more requirements." },
+      { label: "Observation", body: "Customer feedback, Sprint Demo of Bugfix and Beta release." },
+      { label: "What I learned", body: "Software piracy detection scenarios." }
     ],
   },
   {
     month: "June",
     short: "Jun",
-    theme: "[Theme for this month]",
-    summary: "[Very short summary — one line.]",
+    theme: "Finally wrapping up",
+    summary: " ",
     details: [
-      { label: "What happened", body: "[Placeholder]" },
-      { label: "Reflection", body: "[Placeholder]" },
+      { label: "Tasks", body: "Expanded regression testing coverage across more requirements." },
+      { label: "Observation", body: " Gained exposure to PI planning and quarterly updates during townhall." }
     ],
   },
   {
     month: "July",
     short: "Jul",
-    theme: "[Theme for this month]",
-    summary: "[Very short summary — one line.]",
+    theme: "The real challenge",
+    summary: " ",
     details: [
-      { label: "What happened", body: "[Placeholder]" },
-      { label: "What I learned", body: "[Placeholder]" },
+      { label: "Tasks", body: "Feature acceptance testing for Student Edition release. Refactored functional test scripts for efficiency. Exploratory testing." },
+      { label: "Small achievement", body: "Succesfully contributed to the test automation on 2 requirements." }
     ],
   },
   {
     month: "August",
     short: "Aug",
-    theme: "[Theme for this month]",
-    summary: "[Very short summary — one line.]",
+    theme: "Taking opportunities and learning more",
+    summary: " ",
     details: [
-      { label: "What happened", body: "[Placeholder]" },
-      { label: "Reflection", body: "[Placeholder]" },
+      { label: "Tasks", body: "Applied exploratory testing to broaden coverage." }
     ],
   },
 ];
@@ -155,7 +154,7 @@ export const quiz = {
     { key: "C", label: "Bintulu", lat: 3.1667, lng: 113.0333 },
     { key: "D", label: "Sri Aman", lat: 1.2372, lng: 111.4626 },
   ] satisfies QuizOption[],
-  correctNote: "Sri Aman, Sarawak — a small town by the Batang Lupar river.",
+  correctNote: "Sri Aman, Sarawak — a small district part of Sarawak.",
   wrongNote: "Close, but not quite. Here is the difference.",
 };
 
@@ -163,16 +162,15 @@ export const ending = {
   title: "Thank You",
   subtitle: "Internship Experience",
   author: "Prepared by Irweena",
-  note: "Sri Aman → Kuching → Petaling Jaya, and back again.",
+  note: "Are there any questions? :D",
 };
 
 /** Section labels used by the progress rail. */
 export const sections = [
-  { id: "intro", label: "Intro" },
-  { id: "journey", label: "Journey" },
+  { id: "intro", label: "Introduction" },
+  { id: "journey", label: "My Journey" },
   { id: "skills", label: "Skills" },
-  { id: "timeline", label: "Timeline" },
-  { id: "orbit", label: "Months" },
-  { id: "quiz", label: "Quiz" },
-  { id: "ending", label: "Thanks" },
+  { id: "orbit", label: "Key Learnings" },
+  { id: "quiz", label: "Quiz :D" },
+  { id: "ending", label: "Thanks <3" },
 ];

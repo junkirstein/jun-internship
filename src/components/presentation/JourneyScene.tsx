@@ -18,8 +18,23 @@ const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
 const ease = (t: number) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
 
+// Map dimensions
+const MAP_WIDTH = 1000;
+const MAP_HEIGHT = 560;
+
 export function JourneyScene() {
   const { ref, progress } = useSceneProgress<HTMLDivElement>();
+  // Temporarily hard-code for testing - REMOVE LATER
+  const apiKey = "iJdpqCTruwtXUzj4bNy4";
+
+  // MapTiler parameters - centered between Kuching and Petaling Jaya
+  const mapCenter = { lng: 101.5, lat: 3.5 };
+  const mapZoom = 6;
+
+  // Generate MapTiler static map URL
+  const mapTileUrl = apiKey
+    ? `https://api.maptiler.com/maps/basic-v2/static/${mapCenter.lng},${mapCenter.lat},${mapZoom}/${MAP_WIDTH}x${MAP_HEIGHT}@2x.png?key=${apiKey}`
+    : null;
 
   // Story beats
   const flight = ease(clamp01((progress - 0.14) / 0.62));
@@ -48,129 +63,115 @@ export function JourneyScene() {
           </header>
 
           <div className="relative mt-6 md:mt-2">
-            <svg
-              viewBox="0 0 1000 560"
-              className="h-[46svh] w-full md:h-[56svh]"
-              role="img"
-              aria-label="Illustrated map of a flight from Kuching, Sarawak to Petaling Jaya, Selangor"
+            {/* MapTiler Background */}
+            <div
+              className="relative w-full overflow-hidden rounded-lg"
+              style={{ aspectRatio: `${MAP_WIDTH} / ${MAP_HEIGHT}` }}
             >
-              <defs>
-                <linearGradient id="landGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="var(--secondary)" />
-                  <stop offset="100%" stopColor="var(--sage)" stopOpacity="0.55" />
-                </linearGradient>
-              </defs>
+              {mapTileUrl ? (
+                <img
+                  src={mapTileUrl}
+                  alt="Map of Malaysia"
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              ) : (
+                <div className="absolute inset-0 bg-gradient-to-b from-blue-50 to-blue-100 flex items-center justify-center text-muted-foreground">
+                  <p>Map loading... (Add VITE_MAPTILER_API_KEY to .env.local)</p>
+                </div>
+              )}
 
-              <g
-                style={{
-                  transform: `translate(${camX}px, 0) scale(${camScale})`,
-                  transformOrigin: "500px 300px",
-                  transition: "transform 120ms linear",
-                }}
+              {/* SVG Animation Overlay */}
+              <svg
+                viewBox={`0 0 ${MAP_WIDTH} ${MAP_HEIGHT}`}
+                className="absolute inset-0 h-full w-full"
+                role="img"
+                aria-label="Animated flight path from Kuching to Petaling Jaya"
               >
-                {/* sea texture */}
-                <g opacity="0.5" stroke="var(--sea)" strokeWidth="3" strokeLinecap="round">
-                  {[...Array(7)].map((_, i) => (
-                    <path
-                      key={i}
-                      d={`M${330 + (i % 3) * 26} ${170 + i * 48} q 22 -12 44 0 t 44 0`}
-                      fill="none"
-                    />
-                  ))}
-                </g>
-
-                {/* Peninsular Malaysia (simplified) */}
-                <path
-                  d="M232 96 c26 8 40 34 36 62 c-4 30 12 44 16 72 c4 30 -8 48 -22 74 c-14 26 -18 56 -40 66 c-22 10 -34 -12 -30 -38 c4 -28 -6 -44 -6 -72 c0 -34 12 -58 18 -90 c6 -32 4 -66 28 -74 Z"
-                  fill="url(#landGrad)"
-                  stroke="var(--ink)"
-                  strokeOpacity="0.25"
-                  strokeWidth="2"
-                />
-
-                {/* Borneo / Sarawak (simplified) */}
-                <path
-                  d="M556 372 c-24 -22 -18 -52 8 -70 c34 -24 62 -56 104 -74 c46 -20 88 -46 140 -44 c44 2 76 22 92 56 c14 30 -6 54 -34 66 c-40 18 -74 12 -114 26 c-44 16 -74 46 -122 56 c-32 6 -56 4 -74 -16 Z"
-                  fill="url(#landGrad)"
-                  stroke="var(--ink)"
-                  strokeOpacity="0.25"
-                  strokeWidth="2"
-                />
-
-                {/* flight path */}
-                <path
-                  d={`M${P0.x} ${P0.y} Q ${C.x} ${C.y} ${P1.x} ${P1.y}`}
-                  fill="none"
-                  stroke="var(--primary)"
-                  strokeOpacity="0.28"
-                  strokeWidth="2.5"
-                  strokeDasharray="7 10"
-                  strokeLinecap="round"
-                />
-                <path
-                  d={`M${P0.x} ${P0.y} Q ${C.x} ${C.y} ${P1.x} ${P1.y}`}
-                  fill="none"
-                  stroke="var(--primary)"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeDasharray={trail}
-                  strokeDashoffset={trail * (1 - flight)}
-                />
-
-                {/* Kuching pin */}
-                <g>
-                  <circle cx={P0.x} cy={P0.y} r="7" fill="var(--primary)" />
-                  <circle cx={P0.x} cy={P0.y} r="7" fill="none" stroke="var(--primary)" />
-                  <text
-                    x={P0.x + 14}
-                    y={P0.y + 26}
-                    fill="var(--ink)"
-                    fontSize="19"
-                    fontFamily="var(--font-sans)"
-                  >
-                    Kuching
-                  </text>
-                </g>
-
-                {/* Petaling Jaya pin */}
-                <g opacity={pinToOpacity}>
-                  <circle cx={P1.x} cy={P1.y} r="7" fill="var(--primary)" />
-                  <circle
-                    cx={P1.x}
-                    cy={P1.y}
-                    r="14"
-                    fill="none"
-                    stroke="var(--primary)"
-                    strokeOpacity="0.4"
-                  />
-                  <text
-                    x={P1.x - 4}
-                    y={P1.y - 22}
-                    fill="var(--ink)"
-                    fontSize="19"
-                    fontFamily="var(--font-sans)"
-                  >
-                    Petaling Jaya
-                  </text>
-                </g>
-
-                {/* airplane */}
                 <g
                   style={{
-                    transform: `translate(${plane.x}px, ${plane.y}px) rotate(${angle}deg)`,
+                    transform: `translate(${camX}px, 0) scale(${camScale})`,
+                    transformOrigin: "500px 280px",
                     transition: "transform 120ms linear",
                   }}
                 >
+                  {/* flight path */}
                   <path
-                    d="M-13 0 L11 -7 L5 0 L11 7 Z"
-                    fill="var(--primary)"
+                    d={`M${P0.x} ${P0.y} Q ${C.x} ${C.y} ${P1.x} ${P1.y}`}
+                    fill="none"
                     stroke="var(--primary)"
-                    strokeWidth="2"
-                    strokeLinejoin="round"
+                    strokeOpacity="0.28"
+                    strokeWidth="2.5"
+                    strokeDasharray="7 10"
+                    strokeLinecap="round"
                   />
+                  <path
+                    d={`M${P0.x} ${P0.y} Q ${C.x} ${C.y} ${P1.x} ${P1.y}`}
+                    fill="none"
+                    stroke="var(--primary)"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeDasharray={trail}
+                    strokeDashoffset={trail * (1 - flight)}
+                  />
+
+                  {/* Kuching pin */}
+                  <g>
+                    <circle cx={P0.x} cy={P0.y} r="7" fill="var(--primary)" />
+                    <circle cx={P0.x} cy={P0.y} r="7" fill="none" stroke="var(--primary)" />
+                    <text
+                      x={P0.x + 14}
+                      y={P0.y + 26}
+                      fill="var(--ink)"
+                      fontSize="19"
+                      fontFamily="var(--font-sans)"
+                      fontWeight="500"
+                    >
+                      Kuching
+                    </text>
+                  </g>
+
+                  {/* Petaling Jaya pin */}
+                  <g opacity={pinToOpacity}>
+                    <circle cx={P1.x} cy={P1.y} r="7" fill="var(--primary)" />
+                    <circle
+                      cx={P1.x}
+                      cy={P1.y}
+                      r="14"
+                      fill="none"
+                      stroke="var(--primary)"
+                      strokeOpacity="0.4"
+                    />
+                    <text
+                      x={P1.x - 4}
+                      y={P1.y - 22}
+                      fill="var(--ink)"
+                      fontSize="19"
+                      fontFamily="var(--font-sans)"
+                      fontWeight="500"
+                    >
+                      Petaling Jaya
+                    </text>
+                  </g>
+
+                  {/* airplane */}
+                  <g
+                    style={{
+                      transform: `translate(${plane.x}px, ${plane.y}px) rotate(${angle}deg)`,
+                      transition: "transform 120ms linear",
+                    }}
+                  >
+                    <path
+                      d="M-13 0 L11 -7 L5 0 L11 7 Z"
+                      fill="var(--primary)"
+                      stroke="var(--primary)"
+                      strokeWidth="2"
+                      strokeLinejoin="round"
+                    />
+                  </g>
                 </g>
-              </g>
-            </svg>
+              </svg>
+            </div>
 
             <div className="mt-4 flex flex-wrap items-stretch justify-between gap-3 text-left md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:items-end">
               <div className="panel flex-1 px-4 py-3">
