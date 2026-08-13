@@ -4,8 +4,8 @@ import { useSceneProgress } from "@/hooks/use-scroll-scene";
 import { projectOnArtwork } from "./LocationMap";
 
 /** Quadratic bezier helpers for the flight path (map artwork coordinates). */
-const P0 = projectOnArtwork(110.34, 1.55); // Kuching
-const P1 = projectOnArtwork(101.61, 3.1); // Petaling Jaya
+const P0 = projectOnArtwork(109.3592, 1.2533); // Kuching
+const P1 = projectOnArtwork(100.00, 3.501); // Petaling Jaya
 const C = { x: 200, y: 140 };
 
 function bez(t: number) {
@@ -156,8 +156,13 @@ export function JourneyScene() {
               </g>
             </svg>
 
-            <div className="mt-4 flex flex-wrap items-stretch justify-between gap-3 text-left md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:items-end">
-              <div className="panel flex-1 px-4 py-3">
+            <div className="mt-4 flex flex-wrap items-stretch justify-between gap-3 text-left md:absolute md:inset-x-0 md:bottom--5 md:mt-0 md:items-end">
+              <div className="panel flex-1 px-4 py-3 transition-all duration-5"
+                    style={{
+                      opacity: pinToOpacity,
+                      transform: `translateY(${(1 - pinToOpacity) * 1}px)`,
+                    }}
+                  >
                 <p className="text-[0.68rem] uppercase tracking-[0.18em] text-muted-foreground">
                   {journey.from.note}
                 </p>
