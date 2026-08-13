@@ -8,8 +8,8 @@ export type MapPoint = {
 };
 
 const W = 525;
-const H = 240;
-const Y0 = 62;
+const H = 255;
+const Y0 = 55;
 
 
 /**
@@ -37,7 +37,7 @@ export function LocationMap({ points }: { points: MapPoint[] }) {
     <div className="relative overflow-hidden rounded-[var(--radius-2xl)] border border-border bg-card shadow-soft">
       <div className="relative w-full" style={{ aspectRatio: `${W} / ${H}` }}>
         <svg
-          viewBox={`0 ${Y0} ${W} ${H}`}
+          viewBox="0 55 525 255"
           className="absolute inset-0 h-full w-full"
           role="img"
           aria-label="Illustrated map of Malaysia with the selected and actual locations"
@@ -45,9 +45,9 @@ export function LocationMap({ points }: { points: MapPoint[] }) {
           <image
             href="/malaysia-map.png"
             x="0"
-            y="62"
+            y="0"
             width="525"
-            height="240"
+            height="350"
           />
 
           {line && (

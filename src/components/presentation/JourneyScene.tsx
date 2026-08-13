@@ -51,7 +51,7 @@ export function JourneyScene() {
 
           <div className="relative mt-6 md:mt-2">
             <svg
-              viewBox="0 62 525 240"
+              viewBox="0 55 525 255"
               className="h-[46svh] w-full md:h-[56svh]"
               role="img"
               aria-label="Illustrated map of a flight from Kuching, Sarawak to Petaling Jaya, Selangor"
@@ -67,9 +67,9 @@ export function JourneyScene() {
                 <image
                   href="/malaysia-map.png"
                   x="0"
-                  y="62"
+                  y="0"
                   width="525"
-                  height="240"
+                  height="350"
                 />
 
                 {/* flight path */}
