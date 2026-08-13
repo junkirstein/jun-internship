@@ -149,9 +149,9 @@ export const quiz = {
   question: "Where is Irweena from?",
   correctKey: "D" as const,
   options: [
-    { key: "A", label: "Kuching", lat: 1.5533, lng: 110.3592 },
-    { key: "B", label: "Sandakan", lat: 4.2002, lng: 117.2179 },
-    { key: "C", label: "Bintulu", lat: 3.1667, lng: 113.0333 },
+    { key: "A", label: "Kuching", lat: 1.2533, lng: 109.3592 },
+    { key: "B", label: "Sandakan", lat: 4.5002, lng: 119.2179 },
+    { key: "C", label: "Bintulu", lat: 2.7067, lng: 113.0333 },
     { key: "D", label: "Sri Aman", lat: 1.2372, lng: 111.4626 },
   ] satisfies QuizOption[],
   correctNote: "Sri Aman, Sarawak — a small district part of Sarawak.",

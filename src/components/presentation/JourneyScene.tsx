@@ -65,7 +65,7 @@ export function JourneyScene() {
               >
                 {/* map artwork */}
                 <image
-                  href="/malaysia-map.png"
+                  href="/malaysia-map2.png"
                   x="0"
                   y="0"
                   width="525"

@@ -43,7 +43,7 @@ export function LocationMap({ points }: { points: MapPoint[] }) {
           aria-label="Illustrated map of Malaysia with the selected and actual locations"
         >
           <image
-            href="/malaysia-map.png"
+            href="/malaysia-map2.png"
             x="0"
             y="0"
             width="525"
