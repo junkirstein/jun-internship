@@ -69,7 +69,7 @@ export function OrbitScene() {
                   <h3 className="mt-3 text-xl leading-snug md:text-2xl">{m.theme}</h3>
                   <p className="mt-2 text-sm text-muted-foreground">{m.summary}</p>
 
-                  <div className="mt-5 grid gap-2.5">
+                  <div className="mt-1 grid gap-2.5">
                     {m.details.slice(0, isMobile ? 2 : 3).map((det) => (
                       <div
                         key={det.label}
@@ -119,7 +119,7 @@ export function OrbitScene() {
             })}
           </div>
 
-          <div className="mt-4 flex flex-wrap justify-center gap-1.5">
+          <div className="flex justify-center gap-1.5">
             {months.map((m, i) => (
               <span
                 key={m.month}
