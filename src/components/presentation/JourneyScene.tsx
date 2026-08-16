@@ -62,7 +62,7 @@ export function JourneyScene() {
                 style={{
                   transform: `translate(${camX}px, 0) scale(${camScale})`,
                   transformOrigin: "262px 180px",
-                  transition: "transform 120ms linear",
+                  willChange: "transform",
                 }}
               >
                 {/* map artwork */}
@@ -146,7 +146,6 @@ export function JourneyScene() {
                 <g
                   style={{
                     transform: `translate(${plane.x}px, ${plane.y}px) rotate(${angle}deg)`,
-                    transition: isMobile ? "transform 200ms ease-out" : "transform 120ms linear",
                     willChange: "transform",
                   }}
                 >
