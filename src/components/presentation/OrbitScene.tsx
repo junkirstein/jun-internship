@@ -27,7 +27,20 @@ export function OrbitScene() {
             </p>
             
           </header>
-
+          <div className="mt-9 flex flex-wrap justify-center gap-1.5">
+            {months.map((m, i) => (
+              <span
+                key={m.month}
+                className={`rounded-full px-2.5 py-1 text-[0.65rem] uppercase tracking-[0.14em] transition-all duration-300 ${
+                  i === activeIndex
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-foreground/5 text-muted-foreground"
+                }`}
+              >
+                {m.short}
+              </span>
+            ))}
+          </div>
           {/* orbit stage */}
           <div
             className="relative mt-3 h-[52svh] sm:h-[60svh] md:mt-8 md:h-[70svh]"
@@ -119,20 +132,7 @@ export function OrbitScene() {
             })}
           </div>
 
-          <div className="mt-9 flex flex-wrap justify-center gap-1.5">
-            {months.map((m, i) => (
-              <span
-                key={m.month}
-                className={`rounded-full px-2.5 py-1 text-[0.65rem] uppercase tracking-[0.14em] transition-all duration-300 ${
-                  i === activeIndex
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-foreground/5 text-muted-foreground"
-                }`}
-              >
-                {m.short}
-              </span>
-            ))}
-          </div>
+          
         </div>
       </div>
     </section>
