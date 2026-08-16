@@ -1,5 +1,6 @@
 // import mapAsset from "@/assets/malaysia-map.png.asset.json";
 import { journey } from "@/content/presentation";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { useSceneProgress } from "@/hooks/use-scroll-scene";
 import { projectOnArtwork } from "./LocationMap";
 
@@ -22,21 +23,22 @@ const ease = (t: number) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) /
 
 export function JourneyScene() {
   const { ref, progress } = useSceneProgress<HTMLDivElement>();
+  const isMobile = useIsMobile();
 
   // Story beats
-  const flight = ease(clamp01((progress - 0.14) / 0.62));
+  const flight = ease(clamp01((progress - 0.14) / (isMobile ? 0.72 : 0.62)));
   const plane = bez(flight);
   const next = bez(Math.min(1, flight + 0.02));
   const angle = (Math.atan2(next.y - plane.y, next.x - plane.x) * 180) / Math.PI;
 
-  const camX = lerp(-78, 68, ease(clamp01((progress - 0.1) / 0.75)));
-  const camScale = lerp(1.18, 1.32, ease(clamp01((progress - 0.1) / 0.85)));
+  const camX = lerp(-78, 68, ease(clamp01((progress - 0.1) / (isMobile ? 0.85 : 0.75))));
+  const camScale = lerp(1.18, 1.32, ease(clamp01((progress - 0.1) / (isMobile ? 0.95 : 0.85))));
 
   const pinToOpacity = clamp01((flight - 0.72) / 0.2);
   const trail = 280;
 
   return (
-    <section id="journey" ref={ref} className="scene h-[320svh]">
+    <section id="journey" ref={ref} className={`scene ${isMobile ? "h-[220svh]" : "h-[320svh]"}`}>
       <div className="scene-sticky">
         <div className="relative mx-auto w-full max-w-6xl px-6 md:px-10">
           <header className="relative z-10">
@@ -65,7 +67,7 @@ export function JourneyScene() {
               >
                 {/* map artwork */}
                 <image
-                  href="/malaysia-map2.png"
+                  href="/malaysia-map3.png"
                   x="0"
                   y="0"
                   width="525"
@@ -104,15 +106,16 @@ export function JourneyScene() {
                     strokeOpacity="0.4"
                     strokeWidth="1"
                   />
-                  <text
-                    x={P0.x + 8}
-                    y={P0.y + 14}
-                    fill="var(--ink)"
-                    fontSize="10"
-                    fontFamily="var(--font-sans)"
-                  >
-                    Kuching
-                  </text>
+                  
+                    <text
+                      x={P0.x + 8}
+                      y={P0.y + 14}
+                      fill="var(--ink)"
+                      fontSize="8"
+                      fontFamily="var(--font-sans)"
+                    >
+                      Kuching
+                    </text>
                 </g>
 
                 {/* Petaling Jaya pin */}
@@ -130,8 +133,9 @@ export function JourneyScene() {
                   <text
                     x={P1.x - 2}
                     y={P1.y - 12}
+                    textAnchor="middle"
                     fill="var(--ink)"
-                    fontSize="10"
+                    fontSize="8"
                     fontFamily="var(--font-sans)"
                   >
                     Petaling Jaya
@@ -142,7 +146,8 @@ export function JourneyScene() {
                 <g
                   style={{
                     transform: `translate(${plane.x}px, ${plane.y}px) rotate(${angle}deg)`,
-                    transition: "transform 120ms linear",
+                    transition: isMobile ? "transform 200ms ease-out" : "transform 120ms linear",
+                    willChange: "transform",
                   }}
                 >
                   <path
@@ -156,8 +161,8 @@ export function JourneyScene() {
               </g>
             </svg>
 
-            <div className="mt-4 flex flex-wrap items-stretch justify-between gap-3 text-left md:absolute md:inset-x-0 md:bottom--5 md:mt-0 md:items-end">
-              <div className="panel flex-1 px-4 py-3 transition-all duration-5"
+            <div className="mt-4 flex flex-wrapet-x-0 md:bottom-0 md:mt-0 md:items-end">
+              <div className="panel flex-1 px-4 py-3 transition-all duration-1"
                     style={{
                       opacity: pinToOpacity,
                       transform: `translateY(${(1 - pinToOpacity) * 1}px)`,
@@ -169,7 +174,7 @@ export function JourneyScene() {
                 <p className="mt-1 text-sm font-medium">{journey.from.label}</p>
               </div>
               <div
-                className="panel flex-1 px-4 py-3 transition-all duration-500"
+                className="panel flex-1 px-4 py-3 transition-all duration-1"
                 style={{
                   opacity: pinToOpacity,
                   transform: `translateY(${(1 - pinToOpacity) * 12}px)`,

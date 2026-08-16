@@ -52,26 +52,32 @@ export type Month = {
   theme: string;
   summary: string;
   details: MonthDetail[];
-  /** Optional image URL (leave empty to show a placeholder frame). */
+  
   image?: string;
+  
+  images?: string[];
 };
 
 export const timeline = {
   eyebrow: "Key Learnings",
   title: "Seven months, month by month",
-  hint: "Scroll to move through the months",
+  hint: "PS: You may just scroll here",
 };
 
 export const months: Month[] = [
   {
+    
     month: "February",
     short: "Feb",
     theme: "My first week here!",
     summary: " ",
     details: [
-      { label: "Tasks", body: "Started with the onboarding process." },
-      { label: "What I learned", body: "Completed onboarding and corporate policies and regulated software practices." },
+      { label: "What I learned", body: "Begin onboarding and focused on learning modules including corporate policies, internal regulations and general company practices." },
       { label: "Challenge", body: "Gaining familiarity with the work environment." },
+    ],
+    images: [
+      "/Firstday.jpeg",
+      "/Day1.jpeg"
     ],
   },
   {
@@ -81,19 +87,29 @@ export const months: Month[] = [
     summary: " ",
     details: [
       { label: "Tasks", body: "Developed foundational knowledge of 3D design software." },
-      { label: "What I learned", body: "Practiced Agile estimation techniques." }
+      { label: "What I learned", body: " Participated in trial run of Agile estimation tool, Assisted with effort estimations in PI planning sessions." }
+    ],
+    images: [
+      "/Townhall.jpeg",
+      "/Townhall2.jpeg",
+      "/Townhall3.jpeg",
+      "/DeptDay1.jpeg"
     ],
   },
   {
     month: "April",
     short: "Apr",
-    theme: "My first real project",
+    theme: "My first contribution",
     summary: " ",
     details: [
-      { label: "Tasks", body: "Gained hands on experience with regression testing across multiple requirements. Involved in validating and verifying Bugfix 20.0.1 release." },
-      { label: "Observation", body: "Bug reporting, Report documentation, Introduction to Git Extensions." },
-      { label: "Small achievement", body: "Completed RT on 12 requirements, 1 week before the end of the sprint." },
+      { label: "Tasks", body: "Gained hands on experience with regression testing across multiple requirements. Verified and validated critical fixes for the 20.0.1 Bugfix release." },
+      { label: "Observation", body: "Bug reporting, Test report documentation, Version control using Git Extensions." },
+      { label: "Small achievement", body: "Completed RT on 12 requirements, 1 week before the sprint deadline." },
     ],
+    images: [
+      "/April.png"
+    ],
+          
   },
   {
     month: "May",
@@ -101,9 +117,12 @@ export const months: Month[] = [
     theme: "Getting the hang of things",
     summary: " ",
     details: [
-      { label: "Tasks", body: "Participated in validation and verification of Beta release. Continued RT on 3 more requirements." },
-      { label: "Observation", body: "Customer feedback, Sprint Demo of Bugfix and Beta release." },
-      { label: "What I learned", body: "Software piracy detection scenarios." }
+      { label: "Tasks", body: "Participated in general release preparations of Beta 21.0 release and expanded regression testing on 3 additional requirements." },
+      { label: "Observation", body: "Customer feedbacks regarding newly added features, Sprint Demo of 20.0.1 Bugfix and Beta 21.0 release." },
+      { label: "What I learned", body: "Software piracy detection via Cylynt." }
+    ],
+    images: [
+      
     ],
   },
   {
@@ -112,8 +131,13 @@ export const months: Month[] = [
     theme: "Finally wrapping up",
     summary: " ",
     details: [
-      { label: "Tasks", body: "Expanded regression testing coverage across more requirements." },
-      { label: "Observation", body: " Gained exposure to PI planning and quarterly updates during townhall." }
+      { label: "Tasks", body: "Regression testing coverage across more requirements." },
+      { label: "Observation", body: " Gained exposure to PI planning and quarterly updates during townhall." },
+      { label: "Small achievement", body: "Completed regression testing  across all 24 requirements before the sprint deadline." }
+    ],
+    images: [
+      "/DeptDay2.jpeg",
+      "/PI3Planning.jpeg"
     ],
   },
   {
@@ -122,8 +146,11 @@ export const months: Month[] = [
     theme: "The real challenge",
     summary: " ",
     details: [
-      { label: "Tasks", body: "Feature acceptance testing for Student Edition release. Refactored functional test scripts for efficiency. Exploratory testing." },
-      { label: "Small achievement", body: "Succesfully contributed to the test automation on 2 requirements." }
+      { label: "Tasks", body: "System and Interop testing for Student Edition release. Refactored functional test scripts for efficiency. Exploratory testing for edge/extreme cases." },
+      { label: "Small achievement", body: "Succesfully contributed to the test automation on 2 key functional requirements." }
+    ],
+    images: [
+      
     ],
   },
   {
@@ -132,7 +159,10 @@ export const months: Month[] = [
     theme: "Taking opportunities and learning more",
     summary: " ",
     details: [
-      { label: "Tasks", body: "Applied exploratory testing to broaden coverage." }
+      { label: "Tasks", body: "Expansion of functional test on Part Comparison Analysis." }
+    ],
+    images: [
+      "/lunch.jpeg"
     ],
   },
 ];

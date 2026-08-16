@@ -56,9 +56,9 @@ export function SkillsScene() {
                     <span className="font-display text-4xl text-primary md:text-5xl">
                       {item.number}
                     </span>
-                    <span className="grid h-11 w-11 place-items-center rounded-full bg-secondary/70 text-secondary-foreground">
+                    {/* <span className="grid h-11 w-11 place-items-center rounded-full bg-secondary/70 text-secondary-foreground">
                       <Icon className="h-5 w-5" strokeWidth={1.5} />
-                    </span>
+                    </span> */}
                   </div>
                   <h3 className="mt-6 text-2xl md:text-3xl">{item.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">

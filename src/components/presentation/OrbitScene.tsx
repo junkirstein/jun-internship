@@ -20,15 +20,17 @@ export function OrbitScene() {
             <div>
               <p className="eyebrow">Month by month</p>
               <h2 className="mt-2 text-[clamp(1.6rem,4.5vw,2.6rem)]">The monthly orbit</h2>
+              <p className="text-muted-foreground md:text-base">Scroll, no swiping</p>
             </div>
-            <p className="hidden text-xs text-muted-foreground sm:block">
+            <p className="hidden text-xs text-muted-foreground sm:block"> 
               {activeIndex + 1} / {count}
             </p>
+            
           </header>
 
           {/* orbit stage */}
           <div
-            className="relative mt-6 h-[62svh] md:mt-8"
+            className="relative mt-6 h-[70svh] md:mt-8"
             style={{ perspective: "1400px", perspectiveOrigin: "50% 45%" }}
           >
             {months.map((m, i) => {
@@ -46,7 +48,7 @@ export function OrbitScene() {
                 <article
                   key={m.month}
                   aria-hidden={!isFront}
-                  className="absolute left-1/2 top-0 w-[min(92vw,30rem)] rounded-[var(--radius-2xl)] border border-border bg-card p-6 md:p-8"
+                  className="absolute left-1/2 top-0 w-[calc(100vw-2rem)] max-w-[30rem] rounded-[var(--radius-2xl)] border border-border bg-card p-5 md:p-8"
                   style={{
                     transform: `translateX(-50%) translate3d(${x}px, ${r2(abs * 10)}px, ${z}px) rotateY(${r2(-angle * 0.85)}deg) scale(${r2(1 - abs * 0.04)})`,
                     opacity: visible ? r2(Math.max(0, 1 - abs * 0.55)) : 0,
@@ -68,10 +70,10 @@ export function OrbitScene() {
                   <p className="mt-2 text-sm text-muted-foreground">{m.summary}</p>
 
                   <div className="mt-5 grid gap-2.5">
-                    {m.details.slice(0, 3).map((det) => (
+                    {m.details.slice(0, isMobile ? 2 : 3).map((det) => (
                       <div
                         key={det.label}
-                        className="rounded-xl border border-border/70 bg-background/60 px-4 py-3"
+                        className="rounded-xl border border-border/70 bg-background/60 px-3 py-2.5 md:px-4 md:py-3"
                       >
                         <p className="text-[0.62rem] uppercase tracking-[0.18em] text-primary">
                           {det.label}
@@ -82,19 +84,36 @@ export function OrbitScene() {
                       </div>
                     ))}
                   </div>
+                  {(() => {
+                    const gallery = [...(m.images ?? []), ...(m.image ? [m.image] : [])].slice(0, 3);
 
-                  {m.image ? (
-                    <img
-                      src={m.image}
-                      alt={`${m.month} — ${m.theme}`}
-                      loading="lazy"
-                      className="mt-4 h-32 w-full rounded-xl object-cover"
-                    />
-                  ) : (
-                    <div className="mt-4 grid h-20 place-items-center rounded-xl border border-dashed border-border text-[0.7rem] uppercase tracking-[0.16em] text-muted-foreground">
-                      [Photo / screenshot]
-                    </div>
-                  )}
+                    
+
+                    return (
+                      <div
+                        
+                        className={gallery.length === 1 ? "mt-4" : "mt-4 grid gap-2"}
+                        style={{
+                          gridTemplateColumns: gallery.length === 1 ? undefined : `repeat(${Math.min(gallery.length,3)}, minmax(0, 1fr))`,
+                          
+                        }}
+                      >
+                        {gallery.map((src, idx) => (
+                          <img
+                            key={`${m.month}-${idx}`}
+                            src={src}
+                            alt={`${m.month} — ${m.theme} ${idx + 1}`}
+                            loading="lazy"
+                            className={`w-full rounded-xl object-cover ${
+                                        gallery.length === 1
+                                          ? "h-30 md:h-50"
+                                          : "h-28 md:h-50"
+                                      }`}
+                          />
+                        ))}
+                      </div>
+                    );
+                  })()}
                 </article>
               );
             })}

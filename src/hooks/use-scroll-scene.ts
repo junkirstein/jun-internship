@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 export function useSceneProgress<T extends HTMLElement = HTMLDivElement>() {
   const ref = useRef<T | null>(null);
   const [progress, setProgress] = useState(0);
+  const previousProgress = useRef(0);
 
   useEffect(() => {
     let frame = 0;
@@ -16,22 +17,33 @@ export function useSceneProgress<T extends HTMLElement = HTMLDivElement>() {
       if (!el) return;
       const rect = el.getBoundingClientRect();
       const total = rect.height - window.innerHeight;
+      let nextProgress = 0;
+
       if (total <= 0) {
-        setProgress(rect.top < 0 ? 1 : 0);
-        return;
+        nextProgress = rect.top < 0 ? 1 : 0;
+      } else {
+        nextProgress = Math.min(1, Math.max(0, -rect.top / total));
       }
-      const p = Math.min(1, Math.max(0, -rect.top / total));
-      setProgress(p);
+
+      if (Math.abs(nextProgress - previousProgress.current) > 0.001) {
+        previousProgress.current = nextProgress;
+        setProgress(nextProgress);
+      }
     };
+
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
     };
+
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
+    window.addEventListener("orientationchange", onScroll);
+
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+      window.removeEventListener("orientationchange", onScroll);
       if (frame) cancelAnimationFrame(frame);
     };
   }, []);

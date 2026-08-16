@@ -107,7 +107,7 @@ export function LocationMap({ points }: { points: MapPoint[] }) {
 
         <div className="absolute bottom-3 left-3 flex flex-wrap gap-2 text-[0.65rem]">
           <Legend color="var(--primary)" text="Your answer" />
-          <Legend color="var(--success)" text="Actual hometown" />
+          <Legend color="var(--success)" text="Correct answer" />
         </div>
       </div>
     </div>
