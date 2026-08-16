@@ -30,7 +30,7 @@ export function OrbitScene() {
 
           {/* orbit stage */}
           <div
-            className="relative mt-6 h-[70svh] md:mt-8"
+            className="relative mt-3 h-[52svh] sm:h-[60svh] md:mt-8 md:h-[70svh]"
             style={{ perspective: "1400px", perspectiveOrigin: "50% 45%" }}
           >
             {months.map((m, i) => {
@@ -119,7 +119,7 @@ export function OrbitScene() {
             })}
           </div>
 
-          <div className="flex justify-center gap-1.5">
+          <div className="mt-9 flex flex-wrap justify-center gap-1.5">
             {months.map((m, i) => (
               <span
                 key={m.month}

@@ -160,7 +160,7 @@ export function JourneyScene() {
               </g>
             </svg>
 
-            <div className="mt-4 flex flex-wrapet-x-0 md:bottom-0 md:mt-0 md:items-end">
+            <div className="mt-2 flex flex-wrap items-stretch justify-between gap-3 text-left md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:items-end">
               <div className="panel flex-1 px-4 py-3 transition-all duration-1"
                     style={{
                       opacity: pinToOpacity,
