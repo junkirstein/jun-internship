@@ -122,7 +122,7 @@ export const months: Month[] = [
       { label: "What I learned", body: "Software piracy detection via Cylynt." }
     ],
     images: [
-      
+      "/May idk.jpeg"
     ],
   },
   {
@@ -150,7 +150,7 @@ export const months: Month[] = [
       { label: "Small achievement", body: "Succesfully contributed to the test automation on 2 key functional requirements." }
     ],
     images: [
-      
+      "/July.jpeg"
     ],
   },
   {
